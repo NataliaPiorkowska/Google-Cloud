@@ -1,0 +1,31 @@
+### Cloud IAM: Qwik Start #GSP064
+
+There are three roles:
+  * Editor
+  * Owner
+  * Viewer
+These are primitive roles in Google Cloud. 
+Primitive roles set project-level permissions and unless otherwise specified,
+they control access and management to all Google Cloud services.
+
+## Prepare a Cloud Storage bucket for access testing
+  Navigation menu > Cloud Storage > Buckets
+  + Create > add example name and set multi region
+  CREATE > Confirm
+  Upload example file to this bucket
+
+## Remove project access
+  Navigation menu > IAM & Admin > IAM
+  click on pencil icon 
+  Remove Project Viewer access for Username 2 by clicking the trashcan icon next to the role name > SAVE
+
+## Add Cloud Storage permissions
+  Navigation menu > IAM & Admin > IAM
+  +GRANT ACCESS
+  New principals field: user email
+  Select a role field: Cloud Storage > Storage Object Viewer
+  SAVE
+
+## Verify access
+Switch to the Username 2
+gsutil ls gs://[YOUR_BUCKET_NAME]
