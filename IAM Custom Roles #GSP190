@@ -1,0 +1,83 @@
+### IAM Custom Roles #GSP190
+
+There are two kinds of roles in Cloud IAM:
+  * Predefined Roles
+  * Custom Roles (user defined)
+
+
+We can create a custom Cloud IAM role with one or more permissions and then grant that custom role to users. 
+Cloud IAM provides a UI and API for creating and managing custom roles.
+We can create a custom role at the organization level and at the project level. 
+However, we cannot create custom roles at the folder level.
+
+## View the available permissions for a resource
+  gcloud iam list-testable-permissions
+
+## Get the role metadata
+  Before we create a custom role, we might want to get the metadata for both predefined and custom roles. 
+  Role metadata includes the role ID and permissions contained in the role.
+  gcloud iam roles describe [ROLE_NAME]
+  [ROLE_NAME] - roles/viewer or roles/editor
+
+## View the grantable roles on resources
+  gcloud iam list-grantable-roles //cloudresourcemanager.googleapis.com/projects/$DEVSHELL_PROJECT_ID
+
+## Create a custom role
+  file with role definition should be like:
+    title: [ROLE_TITLE]
+    description: [ROLE_DESCRIPTION]
+    stage: [LAUNCH_STAGE]
+    includedPermissions:
+      - [PERMISSION_1]
+      - [PERMISSION_2]
+
+  * create a role definition file
+    nano role-definition.yaml
+
+  * add this role to YAML file
+    title: "Role Editor"
+    description: "Edit access for App Versions"
+    stage: "ALPHA"
+    includedPermissions:
+      - appengine.versions.create
+      - appengine.versions.delete    
+    CTRL+X > Y > ENTER
+
+  * check if role is correct added
+      gcloud iam roles create editor --project $DEVSHELL_PROJECT_ID \
+      --file role-definition.yaml
+
+## list the custom roles
+  (within project) gcloud iam roles list --project $DEVSHELL_PROJECT_ID
+  gcloud iam roles list
+
+## Update a custom role using a YAML file
+  * Create a new-role-definition.yaml file with editor
+    nano new-role-definition.yaml
+  * add new two permissions
+    title: "Role Editor"
+    description: "Edit access for App Versions"
+    stage: "ALPHA"
+    includedPermissions:
+      - appengine.versions.create
+      - appengine.versions.delete
+      - storage.buckets.get
+      - storage.buckets.list
+  *update command, replace [ROLE_ID] with editor
+    gcloud iam roles update [ROLE_ID] --project $DEVSHELL_PROJECT_ID \
+      --file new-role-definition.yaml
+
+## Update a custom role using flags
+
+
+  
+
+
+
+
+
+  
+
+
+
+
