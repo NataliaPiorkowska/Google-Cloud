@@ -1,0 +1,26 @@
+### Introduction to SQL for BigQuery and Cloud SQL #GSP281
+
+  SQL (Structured Query Language) is a standard language for data operations that allows you to ask questions
+  and get insights from structured datasets. It's commonly used in database management and allows 
+  perform tasks like transaction record writing into relational databases and petabyte-scale data analysis.
+
+  Navigation menu > BigQuery > Done
+
+## Create a Cloud SQL instance  
+  In the console, select Navigation menu > SQL.
+  CREATE INSTANCE > Choose MySQL .
+  instance id: my-demo
+  Enter a secure password
+  database version: MySQL 8
+  Cloud SQL edition: Enterprise.
+  Preset: Development (4 vCPU, 16 GB RAM, 100 GB Storage, Single zone).
+  Set the Multi zones (Highly available) field as <Lab Region>
+  CREATE INSTANCE.
+
+##  New queries in Cloud SQL
+  In Clud Shell Command Line: 
+  export PROJECT_ID=$(gcloud config get-value project)
+  gcloud config set project $PROJECT_ID
+    * command to connect to your SQL instance, replacing my-demo if you used a different name for instance:
+      gcloud sql connect my-demo --user=root --quiet
+      CREATE DATABASE bike;
